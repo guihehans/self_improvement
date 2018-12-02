@@ -14,11 +14,11 @@ class Config:
     １．　本地仓库的的路径
     ２．　github中的仓库leetcode解法的路径
     """
-    local_path = r'C:/Users/guihehans/PycharmProjects/self_improvement'
+    local_path = 'C:/Users/guihehans/PycharmProjects/self_improvement'
     # solution of leetcode
-    github_leetcode_url = 'https://github.com/guihehans/self_improvement/leetcode-algorithms/'
+    github_leetcode_url = r'https://github.com/guihehans/self_improvement/tree/master/leetcode-algorithms/'
     # solution of pat,　暂时还没写
-    github_pat_url = 'https://github.com/guihehans/self_improvement/leetcode-algorithms/'
+    github_pat_url = 'https://github.com/guihehans/self_improvement/tree/master/leetcode-algorithms/'
     leetcode_url = 'https://leetcode.com/problems/'
 
 
@@ -133,10 +133,15 @@ class TableInform:
                         if item.endswith('.py'):
                             complete_info.solved['python'] += 1
                             # update problem inform
+
                             folder_url = folder.replace(' ', "%20")
+
+                            # folder_url = folder_url+'/'+item
                             folder_url = os.path.join(folder_url, item)
+                            # in windows, using the /, not \
+                            if os.name=='nt':
+                                folder_url = folder_url.replace('\\','/')
                             folder_url = os.path.join(Config.github_leetcode_url, folder_url)
-                            # print(folder_url)
                             self.table_item[folder[:3]].python = '[Python]({})'.format(folder_url)
                         elif item.endswith('.java'):
                             complete_info.solved['java'] += 1

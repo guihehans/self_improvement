@@ -1,5 +1,5 @@
 # Keep thinking, keep alive
-Until 2018-12-02 17:00:35, I have solved **1** / **899** problems while **139** are still locked.
+Until 2018-12-02 17:43:31, I have solved **1** / **899** problems while **139** are still locked.
 
 Completion statistic: 
 1. JavaScript: 0 
@@ -13,7 +13,7 @@ Note: :lock: means you need to unlock the problems from LeetCode
 ## LeetCode Solution Table
 | ID | Title | Difficulty | JavaScript | Python | C++ | Java |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|001|[Two Sum](https://leetcode.com/problems/two-sum/description/) |Easy|To Do|[Python](https://github.com/guihehans/self_improvement/leetcode-algorithms\001.%20Two%20Su\two_sum.py)|To Do|To Do|
+|001|[Two Sum](https://leetcode.com/problems/two-sum/description/) |Easy|To Do|[Python](https://github.com/guihehans/self_improvement/tree/master/leetcode-algorithms/001.%20Two%20Su/two_sum.py)|To Do|To Do|
 |002|[Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) |Medium|To Do|To Do|To Do|To Do|
 |003|[Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/) |Medium|To Do|To Do|To Do|To Do|
 |004|[Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/) |Hard|To Do|To Do|To Do|To Do|
