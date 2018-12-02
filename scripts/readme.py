@@ -14,17 +14,17 @@ class Config:
     １．　本地仓库的的路径
     ２．　github中的仓库leetcode解法的路径
     """
-    local_path = r'C:\Users\guihehans\PycharmProjects\self_improvements'
+    local_path = r'C:/Users/guihehans/PycharmProjects/self_improvement'
     # solution of leetcode
-    github_leetcode_url = 'https://github.com/hey-bruce/algorithms_and_oj/blob/master/leetcode-algorithms/'
+    github_leetcode_url = 'https://github.com/guihehans/self_improvement/'
     # solution of pat,　暂时还没写
-    github_pat_url = 'https://github.com/hey-bruce/algorithms_and_oj/blob/master/pat-algorithms/'
+    github_pat_url = 'https://github.com/guihehans/self_improvement/'
     leetcode_url = 'https://leetcode.com/problems/'
 
 
 class Question:
     """
-    this class used to store the inform of every question
+    this class used to store the information of every question
     """
 
     def __init__(self, id_,
@@ -98,7 +98,7 @@ class TableInform:
             print(oj_name, ' algorithms is already exits')
         else:
             print('creating {} algorithms....'.format(oj_name))
-            os.mkdir(oj_algorithms)
+            os.makedirs(oj_algorithms)
         for item in self.table_item.values():
             question_folder_name = oj_algorithms + '/' + item.id_ + '. ' + item.title
             if os.name != 'posix':
@@ -106,7 +106,7 @@ class TableInform:
                 question_folder_name = question_folder_name[:-1]
             if not os.path.exists(question_folder_name):
                 print(question_folder_name + 'is not exits, create it now....')
-                os.mkdir(question_folder_name)
+                os.makedirs(question_folder_name)
 
     def update_table(self, oj):
         # the complete inform should be update
@@ -214,7 +214,7 @@ class Readme:
                    '\n2. Python: {python}' \
                    '\n3. C++: {c++}' \
                    '\n4. Java: {java}' \
-                   '\n\nNote: :lock: means you need to buy a book from LeetCode\n'.format(
+                   '\n\nNote: :lock: means you need to unlock the problems from LeetCode\n'.format(
                     self.time, self.solved, self.total, self.locked, **self.others)
 
     def create_leetcode_readme(self, table_instance):
