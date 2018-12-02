@@ -18,7 +18,7 @@ class Solution:
         arr2 = n[q + 1:r + 1].copy()
         # insert a max value to copied sub array to
         # ensure the last element in empty array will be larger
-        # so the ohter arrays element will move back to original n
+        # so the other arrays element will move back to original n
 
         arr1.append(65536)
         arr2.append(65536)
