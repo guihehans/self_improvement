@@ -1,9 +1,9 @@
 # Keep thinking, keep alive
-Until 2018-12-02 17:43:31, I have solved **1** / **899** problems while **139** are still locked.
+Until 2018-12-03 01:16:43, I have solved **3** / **899** problems while **139** are still locked.
 
 Completion statistic: 
 1. JavaScript: 0 
-2. Python: 1
+2. Python: 3
 3. C++: 0
 4. Java: 0
 
@@ -14,9 +14,9 @@ Note: :lock: means you need to unlock the problems from LeetCode
 | ID | Title | Difficulty | JavaScript | Python | C++ | Java |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |001|[Two Sum](https://leetcode.com/problems/two-sum/description/) |Easy|To Do|[Python](https://github.com/guihehans/self_improvement/tree/master/leetcode-algorithms/001.%20Two%20Su/two_sum.py)|To Do|To Do|
-|002|[Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) |Medium|To Do|To Do|To Do|To Do|
+|002|[Add Two Numbers](https://leetcode.com/problems/add-two-numbers/description/) |Medium|To Do|[Python](https://github.com/guihehans/self_improvement/tree/master/leetcode-algorithms/002.%20Add%20Two%20Number/add_two_number.py)|To Do|To Do|
 |003|[Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/) |Medium|To Do|To Do|To Do|To Do|
-|004|[Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/) |Hard|To Do|To Do|To Do|To Do|
+|004|[Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/) |Hard|To Do|[Python](https://github.com/guihehans/self_improvement/tree/master/leetcode-algorithms/004.%20Median%20of%20Two%20Sorted%20Array/find_Median_two_sorted_array.py)|To Do|To Do|
 |005|[Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/description/) |Medium|To Do|To Do|To Do|To Do|
 |006|[ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/description/) |Medium|To Do|To Do|To Do|To Do|
 |007|[Reverse Integer](https://leetcode.com/problems/reverse-integer/description/) |Easy|To Do|To Do|To Do|To Do|
