@@ -1,2 +1,4 @@
 # self_improvement
-自我学习的资料总结
+## leetcode 刷题总结 记录刷题思路与解法
+
+
