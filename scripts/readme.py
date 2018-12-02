@@ -16,9 +16,9 @@ class Config:
     """
     local_path = r'C:/Users/guihehans/PycharmProjects/self_improvement'
     # solution of leetcode
-    github_leetcode_url = 'https://github.com/guihehans/self_improvement/leetcode-algorithms'
+    github_leetcode_url = 'https://github.com/guihehans/self_improvement/leetcode-algorithms/'
     # solution of pat,　暂时还没写
-    github_pat_url = 'https://github.com/guihehans/self_improvement/leetcode-algorithms'
+    github_pat_url = 'https://github.com/guihehans/self_improvement/leetcode-algorithms/'
     leetcode_url = 'https://leetcode.com/problems/'
 
 
