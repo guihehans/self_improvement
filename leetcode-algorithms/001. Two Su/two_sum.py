@@ -10,7 +10,7 @@ class Solution:
         d = {}
         for i in range(len(nums)):
             b = target - nums[i]
-            if b in d and d[b] != i:
+            if b in d:
                 return [d[b], i]
             d[nums[i]] = i
 
