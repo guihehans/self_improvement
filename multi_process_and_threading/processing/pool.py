@@ -11,6 +11,7 @@
 from multiprocessing import Pool
 import os, time, random
 
+
 def long_time_task(name):
     print('Run task %s (%s)...' % (name, os.getpid()))
     start = time.time()
@@ -22,29 +23,35 @@ def long_time_task(name):
 import multiprocessing as mp
 import time
 
-def foo_pool(x,y):
+
+def foo_pool(x, y):
     time.sleep(2)
-    return x*x+y
+    return x * x + y
+
 
 result_list = []
+
+
 def log_result(result):
     # This is called whenever foo_pool(i) returns a result.
     # result_list is modified only by the main process, not the pool workers.
     result_list.append(result)
 
+
 def apply_async_with_callback():
     pool = mp.Pool()
     for i in range(10):
-        pool.apply_async(foo_pool, args = (i, 1), callback =log_result)
+        pool.apply_async(foo_pool, args=(i, 1), callback=log_result)
     pool.close()
     pool.join()
     print(result_list)
 
+
 if __name__ == '__main__':
-    start=time.time()
+    start = time.time()
     apply_async_with_callback()
-    end=time.time()
-    print("finished in {}".format(end-start))
+    end = time.time()
+    print("finished in {}".format(end - start))
 
 # if __name__=='__main__':
 #     print('Parent process %s.' % os.getpid())
