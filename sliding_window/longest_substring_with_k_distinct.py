@@ -67,7 +67,7 @@ def longest_substring_with_k_distinct_v1(str, k):
     window_start, window_end = 0, 0
     len_longest = -1
     count_dict = {}
-    while window_start < len(str) and window_end < len(str):
+    while window_end < len(str):
         if len(count_dict) <= k:
             count_dict[str[window_end]] = count_dict.get(str[window_end], 0) + 1
             len_longest = max(len_longest, len(str[window_start:window_end]))
