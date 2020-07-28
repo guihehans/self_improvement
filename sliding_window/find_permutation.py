@@ -103,6 +103,45 @@ def check_window_in_pattern(start, end, str_param, freq_map):
     return True
 
 
+def find_permutation(str1, pattern):
+    """
+    finish the query in ONE loop. The trick is use a matched to represent how many character we found in pattern
+    if freq[char] ==0. when window expands, this number could be less than zero.but when window shrink, the frequency will
+    increase again. once matched == len(patter), all char matched== return true.
+    :param str1:
+    :param pattern:
+    :return:
+    """
+
+    # init all occurrence in pattern.
+    frequency_map = {}
+    for c in pattern:
+        if c not in frequency_map:
+            frequency_map[c] = 0
+        frequency_map[c] += 1
+    window_start = 0
+    matched = 0
+
+    for window_end in range(len(str1)):
+        if str1[window_end] in frequency_map:
+            frequency_map[str1[window_end]] -= 1
+            if frequency_map[str1[window_end]] == 0:
+                matched += 1
+
+        if matched == len(frequency_map):
+            return True
+
+        if window_end >= len(pattern) - 1:
+            left_char = str1[window_start]
+            window_start += 1
+            if left_char in frequency_map:
+                frequency_map[left_char] += 1
+                if frequency_map[left_char] > 0:
+                    matched -= 1
+
+    return False
+
+
 def test():
     print(find_permutation("oidbcaf", "abc"))
     print(find_permutation("odicf", "dc"))
