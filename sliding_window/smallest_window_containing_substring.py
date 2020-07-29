@@ -25,6 +25,16 @@ Explanation: No substring in the given string has all characters of the pattern.
 
 
 def find_substring(str1, pattern):
+    """
+    the idea is, when window expands, find if there's smaller window contains currently found
+    character. To achieve this, record each character's latest index, when one character can be removed
+    (same as the character at start), change the window start to the smallest char index.
+    if all characters are found, return str[start:end+1]
+
+    :param str1:
+    :param pattern:
+    :return:
+    """
     freq_map = {}
     char_index_map = {}
 
