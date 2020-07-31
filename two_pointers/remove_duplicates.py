@@ -72,10 +72,48 @@ def remove_duplicates_1(arr):
     return next_non_duplicate
 
 
+"""
+Problem 1: Given an unsorted array of numbers and a target ‘key’, 
+remove all instances of ‘key’ in-place and return the new length of the array.
+
+Input: [3, 2, 3, 6, 3, 10, 9, 3], Key=3
+Output: 4
+Explanation: The first four elements after removing every 'Key' will be [2, 6, 10, 9].
+
+Input: [2, 11, 2, 2, 1], Key=2
+Output: 2
+Explanation: The first two elements after removing every 'Key' will be [11, 1].
+"""
+
+
+def remove_element(arr, key):
+    """
+    use the two pointer,one for index,one for key_to_remove.
+
+    :param arr:
+    :param key:
+    :return:
+    """
+
+    key_to_remove = 0
+
+    for i in range(len(arr)):
+        cur_item = arr[i]
+        if cur_item != key:
+            arr[key_to_remove] = arr[i]
+            key_to_remove += 1
+
+    return key_to_remove
+
+
 def main():
     print(remove_duplicates_1([2, 3, 3, 3, 6, 9, 9]))
     print(remove_duplicates_1([2, 2, 2, 11]))
     print(remove_duplicates_1([2, 2, 11]))
 
+def test_2():
+    print(remove_element([3, 2, 3, 6, 3, 10, 9, 3],3))
+    print(remove_element([2, 11, 2, 2, 1],2))
 
 main()
+test_2()
