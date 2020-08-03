@@ -19,22 +19,39 @@ Explanation: There are two unique triplets whose sum is equal to zero.
 """
 
 
-def search_for_pair(arr, i):
-    pair = []
+def search_for_pair(arr, i, result_list):
+    """
+    sub function to find unique triplets.
+    since there may be 1+ triplets in one search, the result add as parameter
+    is simpler than return.
+
+    Sorting the array will take O(N * logN).
+    The searchPair() function will take O(N).
+    As we are calling searchPair() for every number in the input array,
+    this means that overall searchTriplets() will take O(N * logN + N^2),
+    which is asymptotically equivalent to O(N^2).
+    :param arr:
+    :param i:
+    :param result_list:
+    :return:
+    """
     cur = arr[i]
     to_find_sum = - cur
     left = i + 1
     right = len(arr) - 1
-    while left <= right:
-        if arr[left] + arr[right] < to_find_sum or arr[left] == arr[i]:
+    while left < right:
+        if arr[left] + arr[right] == to_find_sum:
+            result_list.append([cur, arr[left], arr[right]])
             left += 1
-        elif arr[left] + arr[right] > to_find_sum:
             right -= 1
+            while left < right and arr[left] == arr[left - 1]:
+                left += 1
+            while left < right and arr[right] == arr[right + 1]:
+                right -= 1
+        elif arr[left] + arr[right] < to_find_sum:
+            left += 1
         else:
-            if arr[left] != arr[right]:
-                return [arr[i], arr[left], arr[right]]
-            else:
-                return []
+            right -= 1
 
 
 def search_triplets(arr):
@@ -42,9 +59,10 @@ def search_triplets(arr):
     arr.sort()
 
     for i in range(len(arr)):
-        pair = search_for_pair(arr, i)
-        if pair:
-            result_list.append(pair)
+        # skip duplicate elements
+        if i > 0 and arr[i] == arr[i - 1]:
+            continue
+        search_for_pair(arr, i, result_list)
 
     return result_list
 
