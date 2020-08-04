@@ -23,6 +23,20 @@ Explanation: There are four triplets whose sum is less than the target:
 
 
 def triplet_with_smaller_sum(arr, target):
+    """
+    similar to triple sum.
+    with loop through SORTED array, the head and and tail can be set.
+    when sum is less than target, then all right -- can be counted.
+    then move left ++ for another round scan.
+
+    when sum is larger than target, then right --, to check if other fits.
+
+    Time. Sort O(N* logN). double loop O(N^2) total O(N*logN +N^2)= O(N^2)
+    Space. O(N) for sort if sort is not in space.
+    :param arr:
+    :param target:
+    :return:
+    """
     count = 0
     arr.sort()
 
