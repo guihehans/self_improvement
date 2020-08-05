@@ -9,6 +9,9 @@
 bubble sort. each loop compare ONLY two contiguous elements. move bigger one backward.
 next loop ignore the sorted larger elements, until every elements sorted.
 
+Time O(N^2)
+Space O(1)
+
 """
 import unittest
 
