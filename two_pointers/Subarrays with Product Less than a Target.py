@@ -55,6 +55,7 @@ def find_subarrays(arr, target):
         # loop to add arr[right :left] to result.
         tmp_list = deque()
         for i in range(right, left - 1, -1):
+            # to ensure order not changed. use append left
             tmp_list.appendleft(arr[i])
             result.append(list(tmp_list))
 
