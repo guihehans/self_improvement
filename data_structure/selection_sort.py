@@ -43,6 +43,5 @@ class TestCase(unittest.TestCase):
         self.assertTrue(selection_sort(nums) == target)
 
 
-
 if __name__ == '__main__':
-    TestCase.test()
+    unittest.main()
