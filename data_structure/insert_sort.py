@@ -3,6 +3,12 @@ import unittest
 
 def insert_sort(nums):
     """
+    1. treat nums[0:i] as sorted,nums[i:len(arr)] unsorted. i range(1,len(nums))
+    2. each step, the to insert card is nums[i], looply compare it the the element in sorted list. if
+        nums[sorted_index] > card, move it backward. until reach an element < card.
+    3. insert the card to where it should be(sorted_index+1)
+    4. finished when i reach end.
+
     :type nums: List[int]
     :rtype: List[int]
     """
