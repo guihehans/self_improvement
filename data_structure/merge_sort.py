@@ -11,7 +11,45 @@ import unittest
 
 
 def merge_sort(arr):
-    pass
+    """
+    divide and conquer.
+    1. find the middle point to divide the array into two halves;
+        mid=(l+r)/2
+    2. call merge_sort for first half.
+    3. call merge_sort for second half.
+    4. merge the two half.
+
+    :param arr:
+    :return:
+    """
+    if (len(arr)) < 2:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    """
+    the merge function.
+    compare left[0] and right[0]. pop the smaller one into result, until all arr empty.
+
+    :param left:
+    :param right:
+    :return:
+    """
+    result = []
+    while left and right:
+        if left[0] < right[0]:
+            result.append(left.pop(0))
+        else:
+            result.append(right.pop(0))
+    while left:
+        result.append(left.pop(0))
+    while right:
+        result.append(right.pop(0))
+    return result
 
 
 class TestCase(unittest.TestCase):
