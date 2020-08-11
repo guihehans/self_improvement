@@ -32,7 +32,8 @@ def counting_sort(arr: List[int]):
 
     tmp_arr = [0] * len(arr)
     for i in range(len(arr) - 1, -1, -1):
-        index = bucket[arr[i]]-1
+        # get the current elements index,set the number and count --
+        index = bucket[arr[i]] - 1
         tmp_arr[index] = arr[i]
         bucket[arr[i]] -= 1
 
