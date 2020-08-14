@@ -45,6 +45,19 @@ class BinarySearchTree:
         """
         recursion function to add a new node to a given node.
         return the modified root node.
+        if: check if root node is empty. if true, insert to root.
+        else:root not empty
+            while current node is not None, loop:
+                compare the value with current node's value.
+                if value< cur.val,
+                    parent is current node
+                    current node to left child.
+                    if current node(child) None, insert and return
+                else:
+                    parent is current node
+                    current node to right child.
+                    if current node(child) None,insert and return
+        finish.
 
         :param value:
         :return:
