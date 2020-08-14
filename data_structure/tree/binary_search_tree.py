@@ -30,34 +30,46 @@ class BinarySearchTree:
     """
 
     def __init__(self, value_list: List[int]):
+        """
+        init the bst from a List[int].
+        recursively invoke the add node function until all list members are added.
+
+        :param value_list:
+        """
         self.root = None
         if value_list:
             for value in value_list:
-                node = Node(value)
-                self.root = self.add_node(self.root, node)
+                self.add_node(value)
 
-    def add_node(self, root: Node, new_node: Node):
+    def add_node(self, value: int):
         """
         recursion function to add a new node to a given node.
-        return the modifed root node.
-        :param root:
-        :param new_node:
-        :return: root. return the inserted node.
+        return the modified root node.
+
+        :param value:
+        :return:
         """
-        if root is None:
-            root = new_node
+        if self.root is None:
+            self.root = Node(value)
         else:
-            if root.val < new_node.val:
-                if root.right is None:
-                    root.right = new_node
+            current_node = self.root
+            tmp_node = Node(value)
+
+            while current_node:
+                if value < current_node.val:
+                    parent_node = current_node
+                    current_node = current_node.left
+                    if current_node is None:
+                        parent_node.left = tmp_node
+                        return True
                 else:
-                    root.right = self.add_node(root.right, new_node)
-            else:
-                if root.left is None:
-                    root.left = new_node
-                else:
-                    root.left = self.add_node(root.left, new_node)
-        return root
+                    parent_node = current_node
+                    current_node = current_node.right
+                    if current_node is None:
+                        parent_node.right = tmp_node
+                        return True
+
+        return False
 
     def in_order(self, root: Node):
         if root:
@@ -65,28 +77,33 @@ class BinarySearchTree:
             print(root.val)
             self.in_order(root.right)
 
-    def find(self, node: Node, value: int):
+    def find(self, value: int):
         """
         find the node which equals the given value.
-        :param node: the given root node to find
+        refactor to non-recursive version.
         :param value:
         :return:
         """
-        current_node = node
+        current_node = self.root
         while current_node:
             if current_node.val == value:
                 return current_node
             else:
                 if current_node.val < value:
-                    return self.find(current_node.right, value)
+                    current_node = current_node.right
                 else:
-                    return self.find(current_node.left, value)
+                    current_node = current_node.left
         return "cannot find node in tree"
+
+    def delete_node(self):
+
+        pass
 
 
 if __name__ == '__main__':
     arr = [50, 30, 20, 40, 70, 60, 80]
     bst = BinarySearchTree(arr)
     bst.in_order(bst.root)
-    node_find=bst.find(bst.root, 40)
+    node_find = bst.find(70)
+
     print(node_find)
