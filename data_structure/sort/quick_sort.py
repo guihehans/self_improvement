@@ -12,10 +12,23 @@ import unittest
 
 
 def quick_sort(arr):
+    """
+    invoke a common recursion function to start.
+    :param arr:
+    :return:
+    """
     return quick_sort_c(arr, left=0, right=len(arr) - 1)
 
 
 def quick_sort_c(arr, left, right):
+    """
+    recursion function.
+
+    :param arr:
+    :param left:
+    :param right:
+    :return:
+    """
     if left >= right:
         return []
     else:
@@ -27,10 +40,11 @@ def quick_sort_c(arr, left, right):
 
 def partition(arr, left, right):
     """
-    in-place partition version
-    with pivot set to arr[right] i:j-1 is processed area, j:right-1 is non-processed area.
-    each time, if arr[j] <pivot, swap to with arr[i], and i++.
+    in-place partition function.
+    with pivot set to arr[right], i:j-1 is processed area, j:right-1 is non-processed area.
+    each time, if arr[j] <pivot, swap arr[j]q with arr[i], and i++.
     finally, swap the pivot to i.
+    return the changed arr and pivot index
     :param arr:
     :param left:
     :param right:
