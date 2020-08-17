@@ -108,15 +108,68 @@ class BinarySearchTree:
                     current_node = current_node.left
         return "cannot find node in tree"
 
-    def delete_node(self):
+    def delete_node(self, value: int):
+        """
+        the method to delete node which's val equals given value
+        1. find the node. if not found, return.
+        2. the node to delete, can be categorized into following:
+            2.1. no child. delete directly.
+            2.2. one child. swap the child with the node.
+            2.3 two child. swap the most left child in right child tree(minimum child).
 
-        pass
+        in code, the 2.1 2.2 can be summarized as, parent node ->child node(if no child, none).
+        it's infact the operation to delete current node.
+        so the 2.3 can be summarized as ,find to delete node and its parent.
+        then link parent node ->child node in total.
+
+        :param value:
+        :return:
+        """
+        current_node: Node = self.root
+        parent_node: Node = None
+        while current_node and current_node.val != value:
+            parent_node = current_node
+            if current_node.val < value:
+                current_node = current_node.right
+            else:
+                current_node = current_node.left
+
+        if current_node is None:
+            return None
+
+        # 1. two child
+        if current_node.left and current_node.right:
+            min_node: Node = current_node.right
+            min_node_parent: Node = current_node
+            while min_node.left:
+                min_node_parent = min_node
+                min_node = min_node.left
+            # set current node value.
+            current_node.val = min_node.val
+            current_node = min_node
+            parent_node = min_node_parent
+
+        child: Node = None
+        if current_node.left:
+            child = current_node.left
+        elif current_node.right:
+            child = current_node.right
+        else:
+            child = None
+
+        if parent_node is None:
+            self.root = child
+        elif parent_node.left == current_node:
+            parent_node.left = child
+        else:
+            parent_node.right = child
 
 
 if __name__ == '__main__':
     arr = [50, 30, 20, 40, 70, 60, 80]
     bst = BinarySearchTree(arr)
     bst.in_order(bst.root)
+    print(">>>>>>>>>>>>>>>>>")
     node_find = bst.find(70)
-
-    print(node_find)
+    bst.delete_node(70)
+    bst.in_order(bst.root)
