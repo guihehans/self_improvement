@@ -115,10 +115,10 @@ class BinarySearchTree:
         2. the node to delete, can be categorized into following:
             2.1. no child. delete directly.
             2.2. one child. swap the child with the node.
-            2.3 two child. swap the most left child in right child tree(minimum child).
+            2.3. two child. swap the successor in right child tree(minimum child).
 
         in code, the 2.1 2.2 can be summarized as, parent node ->child node(if no child, none).
-        it's infact the operation to delete current node.
+        it's in fact the operation to delete current node.
         so the 2.3 can be summarized as ,find to delete node and its parent.
         then link parent node ->child node in total.
 
@@ -146,9 +146,11 @@ class BinarySearchTree:
                 min_node = min_node.left
             # set current node value.
             current_node.val = min_node.val
+            # now problem return to delete current node.
             current_node = min_node
             parent_node = min_node_parent
 
+        # get child node's value. one child or no child.
         child: Node = None
         if current_node.left:
             child = current_node.left
@@ -157,6 +159,7 @@ class BinarySearchTree:
         else:
             child = None
 
+        # link parent's child to to delete node's child. delete node.
         if parent_node is None:
             self.root = child
         elif parent_node.left == current_node:
