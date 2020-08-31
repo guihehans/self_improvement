@@ -11,8 +11,11 @@ from typing import List
 
 
 class MaxHeap:
+    """
+    the maxHeap which each node is larger than it's child.
+    """
 
-    def __init__(self, arr: List):
+    def __init__(self, arr):
         self.array = arr
         self.n = len(arr)
         # [n//2,1]->[n//2,0)
@@ -55,7 +58,7 @@ class MaxHeap:
     def swim(self, k):
         """
         the swim function to heapify a heap at node k.
-
+        at given node, if it's parent less than it, swap it and set focus to parent.
         :param k:
         :return:
         """

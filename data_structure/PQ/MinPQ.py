@@ -10,6 +10,17 @@
 
 
 class MinHeap:
+    """
+    the minHeap which each node is less than it's child.
+    the low level is array and its index is from 0-n.
+    the top level index k is from 1-n+1
+
+    """
+
+    def __init__(self):
+        self.array = []
+        self.n = 0
+
     def __init__(self, arr):
         self.array = arr
         self.n = len(arr)
@@ -35,6 +46,45 @@ class MinHeap:
                 break
             self.swap(k, j)
             k = j
+
+    def swim(self, k):
+        """
+        the swim function to heapify.
+
+        :param k:
+        :return:
+        """
+        while k > 1 and self.greater(k // 2, k):
+            self.swap(k // 2, k)
+            k = k // 2
+
+    def insert(self, val):
+        """
+        insert a val at end of heap. swim the node to heapify
+
+        :param val:
+        :return:
+        """
+        self.array.append(val)
+        self.n = len(self.array)
+        self.swim(self.n)
+
+    def del_root(self):
+        """
+        delete the root node which is minimum.
+        swap the end node to root, delete the end node, and sink down to heapify.
+
+        :return:
+        """
+        min_val = self.find_root()
+        self.swap(1, self.n)
+        self.n -= 1
+        self.sink(1, self.n)
+        del self.array[-1]
+        return min_val
+
+    def find_root(self):
+        return self.array[0]
 
     def greater(self, i, j):
         return self.array[i - 1] > self.array[j - 1]
