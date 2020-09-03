@@ -2,7 +2,7 @@
 # encoding: utf-8
 """
 @author: guihehans
-@file: undirected_graph_API.py
+@file: Graph.py
 @time: 2020/9/1 15:26
 @function:
 
@@ -25,11 +25,11 @@ class Graph:
     def from_stream(stream):
         V = stream.readInt()
         if V < 0:
-            raise ValueError("Number of vertices must be nonnegative")
+            raise ValueError("Number of vertices must be non-negative")
         g = Graph(V)  # construct this graph
         E = stream.readInt()  # read E
         if E < 0:
-            raise ValueError("Number of edges in a Graph must be nonnegative")
+            raise ValueError("Number of edges in a Graph must be non-negative")
 
         for _ in range(E):
             # add an edge
