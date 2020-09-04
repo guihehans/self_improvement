@@ -26,6 +26,7 @@ class DepthFirstPath:
         self._marked[v] = True
         for w in G.adj(v):
             if not self._marked[w]:
+                # record first time find edge(w,v) w's parent set to v.
                 self._edgeTo[w] = v
                 self._dfs(G, w)
 
