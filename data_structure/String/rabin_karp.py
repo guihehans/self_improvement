@@ -48,188 +48,30 @@ def _is_prime(n):
     # lowPrimes is all primes (sans 2, which is covered by the bitwise and operator)
     # under 1000. taking n modulo each lowPrime allows us to remove a huge chunk
     # of composite numbers from our potential pool without resorting to Rabin-Miller
-    lowPrimes = [
-        3,
-        5,
-        7,
-        11,
-        13,
-        17,
-        19,
-        23,
-        29,
-        31,
-        37,
-        41,
-        43,
-        47,
-        53,
-        59,
-        61,
-        67,
-        71,
-        73,
-        79,
-        83,
-        89,
-        97,
-        101,
-        103,
-        107,
-        109,
-        113,
-        127,
-        131,
-        137,
-        139,
-        149,
-        151,
-        157,
-        163,
-        167,
-        173,
-        179,
-        181,
-        191,
-        193,
-        197,
-        199,
-        211,
-        223,
-        227,
-        229,
-        233,
-        239,
-        241,
-        251,
-        257,
-        263,
-        269,
-        271,
-        277,
-        281,
-        283,
-        293,
-        307,
-        311,
-        313,
-        317,
-        331,
-        337,
-        347,
-        349,
-        353,
-        359,
-        367,
-        373,
-        379,
-        383,
-        389,
-        397,
-        401,
-        409,
-        419,
-        421,
-        431,
-        433,
-        439,
-        443,
-        449,
-        457,
-        461,
-        463,
-        467,
-        479,
-        487,
-        491,
-        499,
-        503,
-        509,
-        521,
-        523,
-        541,
-        547,
-        557,
-        563,
-        569,
-        571,
-        577,
-        587,
-        593,
-        599,
-        601,
-        607,
-        613,
-        617,
-        619,
-        631,
-        641,
-        643,
-        647,
-        653,
-        659,
-        661,
-        673,
-        677,
-        683,
-        691,
-        701,
-        709,
-        719,
-        727,
-        733,
-        739,
-        743,
-        751,
-        757,
-        761,
-        769,
-        773,
-        787,
-        797,
-        809,
-        811,
-        821,
-        823,
-        827,
-        829,
-        839,
-        853,
-        857,
-        859,
-        863,
-        877,
-        881,
-        883,
-        887,
-        907,
-        911,
-        919,
-        929,
-        937,
-        941,
-        947,
-        953,
-        967,
-        971,
-        977,
-        983,
-        991,
-        997,
-    ]
-    if n >= 3:
-        if n & 1 != 0:
+    lowPrimes = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
+        , 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179
+        , 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269
+        , 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367
+        , 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461
+        , 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571
+        , 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661
+        , 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773
+        , 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883
+        , 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997]
+    if (n >= 3):
+        if (n & 1 != 0):
             for p in lowPrimes:
-                if n == p:
+                if (n == p):
                     return True
-                if n % p == 0:
+                if (n % p == 0):
                     return False
             return _rabin_miller(n)
     return False
 
 
 def long_random_prime(k):
-    """Generates a random prime.
+    """
+    Generates a random prime.
     :param k: the desired bit length of the prime
     :returns: a random prime of bit length k
     """
@@ -241,7 +83,7 @@ def long_random_prime(k):
         # unusable for serious crypto purposes
         n = random.randrange(2 ** (k - 1), 2 ** (k))
         r -= 1
-        if _is_prime(n):
+        if _is_prime(n) == True:
             return n
     return "Failure after " + r_ + " tries."
 
@@ -257,13 +99,13 @@ class RabinKarp:
         self.pat = pattern
         # radix =ascii set size
         self.R = 256
-        self.m = len(pattern)
-        self.q = long_random_prime(32)
+        self.M = len(pattern)
+        self.Q = long_random_prime(32)
         self.RM = 1
-        # compute R^m-1 mod q for use
-        for i in range(self.m):
-            self.RM = (self.R * self.RM) % self.q
-        self.patHash = self._hash(self.pat, self.m)
+        # compute R^m-1 mod q for use,so multiply R for m-1 times. range(1,m)
+        for i in range(1, self.M):
+            self.RM = (self.R * self.RM) % self.Q
+        self.patHash = self._hash(self.pat, self.M)
 
     def _hash(self, key, m):
         """
@@ -276,38 +118,77 @@ class RabinKarp:
         :param m:
         :return:
         """
-        h = 1
-        for j in range(m):
-            h = (h * self.m + ord(key[j])) % self.q
+        h = 0
+        for j in range(0, m):
+            h = (self.R * h + ord(key[j])) % self.Q
         return h
 
-    def check(self, pat, txt, offset):
-        for i in range(self.m):
-            if pat[i] != txt[i + offset]:
+    def _check(self, txt, offset):
+        for i in range(self.M):
+            if self.pat[i] != txt[i + offset]:
                 return False
         return True
 
     def search(self, txt):
-        q = self.q
-        m = self.m
-        n = len(txt)
-        R = self.R
+        """
+        Returns the index of the first occurrence of the pattern string
+        in the text string.
+        :param txt: the text string
+        :return: the index of the first occurrence of the pattern string
+        in the text string; N if no such match
+        """
+        N = len(txt)
+        M = self.M
         RM = self.RM
-        if n < self.m:
-            return n
-        txtHash = self._hash(txt, m)
-
-        if self.patHash == txtHash:
+        Q = self.Q
+        R = self.R
+        patHash = self.patHash
+        txtHash = self._hash(txt, M)
+        if (patHash == txtHash):
             return 0
+        for i in range(M, N):
+            # remove heading , +Q for avoiding underflow
+            txtHash = (txtHash + Q - RM * ord(txt[i - M]) % Q) % Q
+            # multiply R, and adding tail
+            txtHash = (txtHash * R + ord(txt[i])) % Q
+            if (patHash == txtHash):
+                if (self._check(txt, i - M + 1)):
+                    return i - M + 1
+        return N
 
-        # i start from index=m, ending to n, the substring index start from i-M+1
-        for i in range(m, n):
-            # remove leading digit, adding tail digit for next substring hash
-            txtHash = (txtHash + q - RM * ord(txt[i - m]) % q) % q
-            txtHash = (txtHash * R + ord(i)) % q
-            offset = i - m + 1
-            if self.patHash == txtHash and self.check(self.pat, txt, offset):
-                return offset
 
-        # no match
-        return n
+def main():
+    """Takes a pattern string and an input string as command-line arguments;
+    searches for the pattern string in the text string; and prints the first
+    occurrence of the pattern string in the text string.
+    Will print the pattern after the end of the string if no match is
+    found.
+    """
+    pat = sys.argv[1]
+    txt = sys.argv[2]
+    rk = RabinKarp(pat)
+    print("text:      ")
+    print("{}".format(txt))
+    offset = rk.search(txt)
+    print("offset is {}".format(offset))
+    print("pattern:")
+    for _ in range(0, offset):
+        print("", end=" ")
+    print(pat)
+
+    from itu.algs4.strings.rabin_karp import RabinKarp as FRabinKarp
+    frk = FRabinKarp(pat)
+    print("text:      ")
+    print("{}".format(txt))
+    offset = frk.search(txt)
+    print("offset is {}".format(offset))
+    print("pattern:")
+    for _ in range(0, offset):
+        print("", end=" ")
+    print(pat)
+
+
+if __name__ == "__main__":
+    import sys
+
+    main()
