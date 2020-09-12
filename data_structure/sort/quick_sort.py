@@ -42,7 +42,7 @@ def partition(arr, left, right):
     """
     in-place partition function.
     with pivot set to arr[right], i:j-1 is processed area, j:right-1 is non-processed area.
-    each time, if arr[j] <pivot, swap arr[j]q with arr[i], and i++.
+    each time, if arr[j] <pivot, swap arr[j] with arr[i], and i++.
     finally, swap the pivot to i.
     return the changed arr and pivot index
     :param arr:
