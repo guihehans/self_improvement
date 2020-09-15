@@ -27,16 +27,20 @@ class BoyerMoore:
         N = len(txt)
         pat = self.pat
         # bad character rule
-        for i in range(0, N - M):
+        skip = 0
+        i = 0
+        while i <= N - M:
             skip = 0
-            for j in range(M - 1, 0, -1):
+            for j in range(M - 1, -1, -1):
                 if pat[j] != txt[i + j]:
                     # the skip move length is the j-(next occur bad char index in pat).
-                    skip = max(1, j - self.bc[ord(txt[i + j])])
+                    skip = j - self.bc[ord(txt[i + j])]
+                    if skip < 1:
+                        skip = 1
                     break
             if skip == 0:
                 return i
-
+            i += skip
         return N
 
 
