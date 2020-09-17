@@ -145,9 +145,6 @@ def main():
         print("", end=" ")
     print(pat)
 
-    pat = sys.argv[1]
-    txt = sys.argv[2]
-    bm = BoyerMoore(pat)
     print("text:    {}".format(txt))
     offset = bm.search_with_good_suffix_rule(txt)
     print("pattern:", end=" ")
