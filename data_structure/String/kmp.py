@@ -42,7 +42,7 @@ class KMP:
         :param M: length of pattern
         :return:next_arr
         """
-        next_arr = [-1 for _ in range(M)]
+        next_arr = [0 for _ in range(M)]
         next_arr[0] = -1
         k = -1
         for i in range(1, M):
