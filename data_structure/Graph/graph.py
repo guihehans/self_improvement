@@ -2,12 +2,12 @@
 # encoding: utf-8
 """
 @author: guihehans
-@file: Graph.py
+@file: graph.py
 @time: 2020/9/1 15:26
 @function:
 
 """
-from data_structure.foundamental.Bag import Bag
+from data_structure.foundamental.bag import Bag
 
 
 class Graph:

@@ -2,12 +2,12 @@
 # encoding: utf-8
 """
 @author: guihehans
-@file: test_Bags.py
+@file: test_bags.py
 @time: 2020/9/2 14:23
 @function:
 
 """
-from data_structure.foundamental.Bag import Bag
+from data_structure.foundamental.bag import Bag
 
 
 class TestBag:
