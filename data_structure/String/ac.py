@@ -60,6 +60,19 @@ class AcTrie:
             return True
 
     def build_fail(self):
+        """
+
+        build the fail pointer for each node.
+        fail pointer is the longest suffix which can match the other's prefix,最长可匹配后缀
+        and the pointer points to the prefix's last node.
+        the building idea is like reversion.
+
+        1.pc(p's child)'s fail is qc:  pc=qc when pc.data==qc.data. q =p.fail
+        2.root's fail is none
+        BFS the AcTrie and build fail for each node get from queue.
+
+        :return:
+        """
         queue = Queue()
         self._root.fail = None
         queue.enqueue(self._root)
@@ -87,6 +100,20 @@ class AcTrie:
                 queue.enqueue(pc)
 
     def search(self, txt: str):
+        """
+        the idea is check the fail pointer chain if the fail pointer is an ending.
+        given txt str for search, the pattern list is inserted already.
+        from p=root, check if p.children[index[i]] ==txt[i].
+        if p has txt[i] children:
+            p=p.children[index[i]]
+            check whole fail pointer chain if has ending.
+                if isending,  pos=i-tmp.length+1
+            tmp=tmp.fail
+        else: p.children[index[i]] is None and p!=root
+                p=p.fail loop
+        :param txt:
+        :return:
+        """
         n = len(txt)
         p = self._root
         for i in range(n):
@@ -115,4 +142,4 @@ if __name__ == '__main__':
         acTrie.insert(p)
 
     acTrie.build_fail()
-    acTrie.search("abcabcd")
+    acTrie.search("abcabce")
