@@ -7,7 +7,7 @@
 @function:
 
 """
-from data_structure.Graph.Graph import Graph
+from data_structure.Graph.graph import Graph
 
 
 class DepthFirstSearch:

@@ -10,10 +10,10 @@
 import math
 from typing import Iterable
 
+from itu.algs4.fundamentals.queue import Queue
 from itu.algs4.fundamentals.stack import Stack
 
-from data_structure.Graph.Graph import Graph
-from itu.algs4.fundamentals.queue import Queue
+from data_structure.Graph.graph import Graph
 
 
 class BreadthFirstPath:
