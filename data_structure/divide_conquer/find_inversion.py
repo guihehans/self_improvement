@@ -14,10 +14,11 @@ calculate the inversion number of sub1 and sub2, then in merge process, inversio
 
 """
 
+global num
+num = 0
+
 
 def count(a, n):
-    global num
-    num = 0
     merge_count_sort(a, 0, n - 1)
     return num
 
@@ -71,6 +72,6 @@ def merge(a, left, mid, right):
 
 
 if __name__ == '__main__':
-    list = [2, 4, 3, 1, 5, 6]
-    pairs = count(list, 6)
+    arr = [2, 4, 3, 1, 5, 6]
+    pairs = count(arr, 6)
     print(pairs)
