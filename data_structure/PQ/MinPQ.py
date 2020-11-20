@@ -6,6 +6,8 @@
 @time: 2020/8/26 15:52
 @function:
 
+the minHeap heapify can ensure the largest element to be sink to the heap bottom, make the Top k element stay in minheap
+so it's useful for top-k problem.
 """
 
 

@@ -26,12 +26,13 @@ def find_subarrays(arr, target):
     need the sub arrays to be CONTIGUOUS. so no sort.
     with a sliding window, check if window elements' product less than target.
     (by multiply each arr[right], to get an accumulating product.
-    if less than, iterate adding arr[left-right] sub array to result.
-    if not, left++,begin another round of loop.
+    if less than target, iterate adding arr[left-right] sub array to result, from right to left, one adding one
+    if larger than target, left++,begin another round of loop.
 
     Time complexity:The main for-loop managing the sliding window takes O(N)
     but creating subarrays can take up to O(N^2) in the worst case.
     Therefore overall, our algorithm will take O(N^3).
+    Space: tge tmp_list use O(N)
 
 
     :param arr:
@@ -67,4 +68,5 @@ def main():
     print(find_subarrays([8, 2, 6, 5], 50))
 
 
-main()
+if __name__ == '__main__':
+    main()
