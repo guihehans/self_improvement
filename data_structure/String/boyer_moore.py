@@ -81,7 +81,9 @@ class BoyerMoore:
         # if none found, move the entire pattern.
         return m
 
-    def search(self, txt):
+    def search(self, txt):                                                                                                                     
+
+
         M = self.M
         N = len(txt)
         pat = self.pat
