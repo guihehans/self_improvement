@@ -2,7 +2,7 @@
 # encoding: utf-8
 """
 @author: guihehans
-@file: 01bag.py
+@file: knapsack.py
 @time: 2020/10/23 10:31
 @function:
 
@@ -57,19 +57,6 @@ class BagZeroOne:
             self.f(i + 1, cw + self.item_list[i])
 
 
-# def max_weight_with_price(i, cw, cv, item_list, value_list, n, w):
-#     if cw == w or i == n:
-#         global maxW, maxV
-#         if cw > maxW:
-#             maxW = cw
-#         if cv > maxV:
-#             maxV = cv
-#         return
-#     # check item i not select condition,go to check i+1
-#     max_weight_with_price(i + 1, cw, cv, item_list, value_list, n, w)
-#     # return from i+1 to i, now select item i
-#     if cw + item_list[i] <= w:
-#         max_weight_with_price(i + 1, cw + item_list[i], cv + value_list[i], item_list, value_list, n, w)
 
 
 if __name__ == '__main__':
