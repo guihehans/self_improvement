@@ -73,28 +73,57 @@ def knapsack_1d_arr(item, n, w):
     return 0
 
 
-def knapsack_value(item, value, n, w):
-    return
+def knapsack_value(items, values, n, w):
+    # init states which stores the corresponding values states
+    states = [[-1 for j in range(w + 1)] for i in range(n)]
+    # init first items states
+    states[0][0] = 0
+    if items[0] <= w:
+        states[0][items[0]] = values[0]
+
+    # dp
+    for i in range(1, n):
+        for j in range(0, w + 1):  # not picking items[i]
+            if states[i - 1][j] >= 0:
+                states[i][j] = states[i - 1][j]
+        for j in range(0, w + 1 - items[i]):  # picking items[i]
+            # add values[i] to cor states
+            if states[i - 1][j] >= 0:
+                # update if picked item's value more
+                if states[i][j + items[i]] < states[i - 1][j] + values[i]:
+                    states[i][j + items[i]] = states[i - 1][j] + values[i]
+    # find max value in final stage
+    return max(states[n - 1])
 
 
 def test_case():
     arr = [2, 2, 4, 6, 3]
     n = len(arr)
     w = 9
-    value = knapsack_2d(arr, n, w)
-    print(value)
-    assert value == 9
+    current_weight = knapsack_2d(arr, n, w)
+    print(current_weight)
+    assert current_weight == 9
 
 
 def test_case_1():
     arr = [2, 2, 4, 6, 3]
     n = len(arr)
     w = 9
-    value = knapsack_1d_arr(arr, n, w)
-    print(value)
-    assert value == 9
+    current_weight = knapsack_1d_arr(arr, n, w)
+    print(current_weight)
+    assert current_weight == 9
+
+
+def test_case_2():
+    arr = [2, 2, 4, 6, 3]
+    values = [3, 4, 8, 9, 6]
+    n = len(arr)
+    w = 9
+    cur_value = knapsack_value(arr, values, n, w)
+    print(cur_value)
 
 
 if __name__ == '__main__':
     test_case()
     test_case_1()
+    test_case_2()
