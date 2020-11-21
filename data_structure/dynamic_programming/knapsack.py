@@ -58,9 +58,6 @@ def knapsack_1d_arr(item, n, w):
         states[item[0]] = True
     # dp each stage
     for i in range(1, n):
-        for j in range(0, w + 1):  # not picking item[i]
-            if states[j]:
-                states[j] = True
         for j in range(w - item[i], -1, -1):  # picking item[i].
             # reverse j so adding item[i] will not leading endless loop
             if states[j]:
@@ -96,6 +93,25 @@ def knapsack_value(items, values, n, w):
     return max(states[n - 1])
 
 
+def knapsack_value_1d(items, values, n, w):
+    # init an 1d array stores value states
+    states = [-1 for i in range(w + 1)]
+    # init first item states
+    states[0] = 0
+    if items[0] <= w:
+        states[items[0]] = values[0]
+
+    # dp
+    for i in range(1, n):
+        for j in range(w - items[i], -1, -1):  # j in [w - items[i],0]
+            # update if values in same states bigger.
+            if states[j] >= 0:
+                if states[j] + values[i] > states[j + items[i]]:
+                    states[j + items[i]] = states[j] + values[i]
+
+    return max(states)
+
+
 def test_case():
     arr = [2, 2, 4, 6, 3]
     n = len(arr)
@@ -121,9 +137,21 @@ def test_case_2():
     w = 9
     cur_value = knapsack_value(arr, values, n, w)
     print(cur_value)
+    assert cur_value == 18
+
+
+def test_case_3():
+    arr = [2, 2, 4, 6, 3]
+    values = [3, 4, 8, 9, 6]
+    n = len(arr)
+    w = 9
+    cur_value = knapsack_value_1d(arr, values, n, w)
+    print(cur_value)
+    assert cur_value == 18
 
 
 if __name__ == '__main__':
     test_case()
     test_case_1()
     test_case_2()
+    test_case_3()
