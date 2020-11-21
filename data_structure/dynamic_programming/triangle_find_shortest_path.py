@@ -37,7 +37,8 @@ def triangle_find_shortest_path(matrix, col, depth):
     found_j = 0
     for i in range(depth - 1, 0, -1):
         for j in range(len(matrix[i])):
-            # use or short path to go to found_last_j
+            # use or short path to go to found_j. since sometimes there exists same states in upper stage.
+            # use found_j to find right states. and treat 1 time special.
             if states[i][found_j] == cur_path or states[i][j] == cur_path:
                 if i == depth - 1:
                     print("level:{},node index:{},value:{} in shortest path".format(i, j, matrix[i][j]))
