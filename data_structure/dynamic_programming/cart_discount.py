@@ -13,7 +13,8 @@ lead to total value most close to 200.
 """
 
 
-def find_cart_items(items, n, max_value, condition_value):
+def find_cart_items(items, n, condition_value):
+    max_value = condition_value * 3
     assert condition_value <= max_value
     # init 2d states array [n][max_value]
     states = [[False for j in range(max_value + 1)] for i in range(n)]
@@ -47,3 +48,18 @@ def find_cart_items(items, n, max_value, condition_value):
     if cur_value != 0:
         i = 0
         print("items:{}, price:{} is bought".format(i, items[i]))
+
+    return min_value
+
+
+def f():
+    arr = [2, 2, 4, 6, 3]
+    n = len(arr)
+    condition = 5
+    cur_value = find_cart_items(arr, n, condition)
+    print(cur_value)
+    assert cur_value == 5
+
+
+if __name__ == '__main__':
+    f()
