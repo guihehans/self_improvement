@@ -26,6 +26,8 @@ def triangle_find_shortest_path(matrix, col, depth):
         for j in range(len(matrix[i])):
             left_x, left_y = i + 1, j
             r_x, r_y = i + 1, j + 1
+            #  states[i + 1][left_y]=min{states[i][j] + matrix[left_x][left_y]}
+            #  same as states[i + 1][right_y]
             if states[left_x][left_y] > states[i][j] + matrix[left_x][left_y]:
                 states[i + 1][left_y] = states[i][j] + matrix[left_x][left_y]
             if states[r_x][r_y] > states[i][j] + matrix[r_x][r_y]:
