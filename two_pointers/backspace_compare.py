@@ -31,7 +31,7 @@ Explanation: After applying backspaces the strings become "xywrrmp" and "xywrrmp
 """
 
 
-def backspace_compare(str1, str2):
+def backspace_compare_1(str1, str2):
     """
     compare in reverse order, so we can know whether if a char to delete or not.
     using a skip_1,skip_2 to record if a char need to be delete.
@@ -75,6 +75,41 @@ def backspace_compare(str1, str2):
     if i != j:
         return False
     return True
+
+
+def backspace_compare(str1, str2):
+    # use two pointer approach to compare the strings
+    index1 = len(str1) - 1
+    index2 = len(str2) - 1
+    while index1 >= 0 or index2 >= 0:
+        i1 = get_next_valid_char_index(str1, index1)
+        i2 = get_next_valid_char_index(str2, index2)
+        if i1 < 0 and i2 < 0:  # reached the end of both the strings
+            return True
+        if i1 < 0 or i2 < 0:  # reached the end of one of the strings
+            return False
+        if str1[i1] != str2[i2]:  # check if the characters are equal
+            return False
+
+        index1 = i1 - 1
+        index2 = i2 - 1
+
+    return True
+
+
+def get_next_valid_char_index(str, index):
+    backspace_count = 0
+    while index >= 0:
+        if str[index] == '#':  # found a backspace character
+            backspace_count += 1
+        elif backspace_count > 0:  # a non-backspace character
+            backspace_count -= 1
+        else:
+            break
+
+        index -= 1  # skip a backspace or a valid character
+
+    return index
 
 
 def test_0():
