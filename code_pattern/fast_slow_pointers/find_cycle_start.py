@@ -35,18 +35,12 @@ class Solution:
             fast = fast.next.next
             slow = slow.next
             if fast == slow:
-                cycle_length = find_cycle_length(slow)
-                fast, slow, pos = head, head, 0
-                for i in range(cycle_length):
-                    if fast is not None:
-                        fast = fast.next
-
-                while fast != slow and fast is not None and slow is not None:
-                    fast = fast.next
+                cur = head
+                while cur != slow:
+                    cur = cur.next
                     slow = slow.next
-                    pos += 1
-                return pos
-        return -1
+                return slow
+        return None
 
 
 def find_cycle_length(slow: ListNode) -> int:
