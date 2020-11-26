@@ -2,7 +2,7 @@
 # encoding: utf-8
 """
 @author: guihehans
-@file: has_circle.py
+@file: has_cycle.py
 @time: 2020/11/26 10:52
 @function:
 
