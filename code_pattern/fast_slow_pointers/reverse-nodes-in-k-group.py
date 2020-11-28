@@ -14,10 +14,20 @@ class ListNode:
 
 
 def reverse(head, tail):
+    """
+    reverse the sub list, given it's head and tail.
+    e.g, 1->2->3  =>   2->1->3  return Node(2) Node(1)
+    :param head:
+    :param tail:
+    :return: the reverse sub list's head and tail
+    """
+    # TRICKY fist pre set to the head's next, which is tail.next
+    # but in fact it doesnt matter, since we will concat in main function
     pre = tail.next
+    # save copy
     head_copy = head
     tail_next=tail.next
-    while head != tail_next:
+    while head != tail_next: # stop when head reach original tail.next
         nex = head.next
         head.next = pre
         pre = head
@@ -27,7 +37,9 @@ def reverse(head, tail):
 
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        # set a dummy to be head's prev
         dummy = ListNode(0)
+        # dummy next saves the head
         dummy.next = head
         pre = dummy
         while head:
