@@ -27,7 +27,7 @@ def reorder(head):
         return head
     # 1 find mid
     # reverse 2nd half
-    # loop 1st hf and 2nd hald simultaneously,insert 2nd half one by one
+    # loop 1st hf and 2nd half simultaneously,insert 2nd half one by one
     fast, slow = head, head
     while fast is not None and fast.next is not None:
         fast = fast.next.next
