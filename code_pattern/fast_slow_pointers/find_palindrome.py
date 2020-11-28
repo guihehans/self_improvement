@@ -79,6 +79,13 @@ def test_case_2():
     assert (is_palindromic_linked_list(head)) is True
 
 
+def test_case_3():
+    head = Node(1)
+    head.next = Node(0)
+    head.next.next = Node(0)
+    assert (is_palindromic_linked_list(head)) is False
+
+
 if __name__ == '__main__':
     test_case_0()
     test_case_1()
