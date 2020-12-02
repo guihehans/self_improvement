@@ -38,7 +38,7 @@ def merge_my(intervals_a, intervals_b):
     return result
 
 
-def merge(intervals_a, intervals_b):
+def merge_v1(intervals_a, intervals_b):
     """
     Improve. as a b are all sorted, we can loop ab in order in one loop.
     the overlap: one's start lies within others start and end.
@@ -60,6 +60,33 @@ def merge(intervals_a, intervals_b):
         if a_overlap_b or b_overlap_a:
             c_start = max(intervals_a[i][0], intervals_b[j][0])
             c_end = min(intervals_a[i][1], intervals_b[j][1])
+            result.append([c_start, c_end])
+
+        # increase i j by end. the smaller increase first
+        if intervals_a[i][1] < intervals_b[j][1]:
+            i += 1
+        else:
+            j += 1
+    return result
+
+
+def merge(intervals_a, intervals_b):
+    """
+    Improve. as a b are all sorted, we can loop ab in order in one loop.
+    as long as c_start<c_end, means there;s overlap
+    :param intervals_a:
+    :param intervals_b:
+    :return:
+    """
+    result = []
+    len_a = len(intervals_a)
+    len_b = len(intervals_b)
+
+    i, j = 0, 0
+    while i < len_a and j < len_b:
+        c_start = max(intervals_a[i][0], intervals_b[j][0])
+        c_end = min(intervals_a[i][1], intervals_b[j][1])
+        if c_start <= c_end:
             result.append([c_start, c_end])
 
         # increase i j by end. the smaller increase first
