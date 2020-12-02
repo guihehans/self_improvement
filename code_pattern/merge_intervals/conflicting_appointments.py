@@ -24,6 +24,7 @@ Appointments: [[4,5], [2,3], [3,6]]
 Output: false
 Explanation: Since [4,5] and [3,6] overlap, a person cannot attend both of these appointments.
 """
+from typing import List
 
 
 def can_attend_all_appointments(intervals):
@@ -49,6 +50,21 @@ def can_attend_all_appointments(intervals):
     return True
 
 
+def output_conflict_appointments(intervals: List):
+    n = len(intervals)
+    if n < 2:
+        return True
+
+    intervals.sort(key=lambda x: x[0])
+    start, end = intervals[0][0], intervals[0][1]
+    for i in range(1, n):
+        # here same a_end and b_start means not conflict
+        if intervals[i][0] < end:
+            print("{} and {} conflict".format([start, end], intervals[i]))
+        else:
+            start, end = intervals[i][0], intervals[i][1]
+
+
 def test():
     app = [[1, 4], [2, 5], [7, 9]]
     result = can_attend_all_appointments(app)
@@ -71,6 +87,11 @@ def test_3():
     app = [[1, 4], [4, 5], [7, 9]]
     result = can_attend_all_appointments(app)
     assert result is True
+
+
+def test_output():
+    app = [[4, 5], [2, 3], [3, 6], [5, 7], [7, 8]]
+    output_conflict_appointments(app)
 
 
 if __name__ == '__main__':
