@@ -46,6 +46,12 @@ def min_meeting_rooms_my(meetings: List[Meeting]) -> int:
 
 
 def min_meeting_rooms(meetings: List[Meeting]) -> int:
+    """
+    Time complexity: O(N*logN). O(N*LogN) on sorting. O(N) for iterating, O(logN) for heappush and heappop
+    Space complexity: O(N). O(N) for sort. O(N) for min_heap if in worst case scenario.
+    :param meetings:
+    :return:
+    """
 
     meetings.sort(key=lambda x: x.start)
     min_heap = []
