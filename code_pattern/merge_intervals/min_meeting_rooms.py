@@ -60,7 +60,7 @@ def min_meeting_rooms(meetings: List[Meeting]) -> int:
         # if min_heap not empty and current meeting start after current smallest min_heap meeting's end
         # which means current meeting can be arranged after the min_heap[0]
         # pop the min_heap[0]
-        if len(min_heap) > 0 and meeting.start >= min_heap[0].end:
+        while len(min_heap) > 0 and meeting.start >= min_heap[0].end:  # remove all meeting end before now
             heappop(min_heap)
         # else, the meeting either
         # 1.overlap with one meeting in heap,
@@ -90,6 +90,12 @@ def test_3():
 def test_4():
     min_room = min_meeting_rooms([Meeting(4, 5), Meeting(2, 3), Meeting(2, 4), Meeting(3, 5)])
     assert min_room == 2
+
+
+def test_4():
+    min_room = min_meeting_rooms(
+        [Meeting(4, 5), Meeting(2, 3), Meeting(2, 4), Meeting(3, 5), Meeting(2, 3), Meeting(3, 5)])
+    assert min_room == 3
 
 
 if __name__ == '__main__':
