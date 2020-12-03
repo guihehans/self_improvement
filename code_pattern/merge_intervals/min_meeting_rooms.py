@@ -46,9 +46,7 @@ def min_meeting_rooms_my(meetings: List[Meeting]) -> int:
 
 
 def min_meeting_rooms(meetings: List[Meeting]) -> int:
-    n = len(meetings)
-    if n < 2:
-        return n
+
     meetings.sort(key=lambda x: x.start)
     min_heap = []
     min_room = 0
@@ -58,7 +56,10 @@ def min_meeting_rooms(meetings: List[Meeting]) -> int:
         # pop the min_heap[0]
         if len(min_heap) > 0 and meeting.start >= min_heap[0].end:
             heappop(min_heap)
-        # else, the meeting overlap with one meeting in heap, heappush it as open another room.
+        # else, the meeting either
+        # 1.overlap with one meeting in heap,
+        # 2.continue after the end first meeting min_heap[0]
+        # heappush it as occupy another room or continue use room
         heappush(min_heap, meeting)
         min_room = max(min_room, len(min_heap))
 
