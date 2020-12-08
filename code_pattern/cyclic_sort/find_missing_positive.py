@@ -50,6 +50,8 @@ def find_first_missing_positive(nums):
     for i in range(n):
         if i + 1 != nums[i]:
             return i + 1
+    # if [] or [1]
+    return len(nums)+1
 
 
 def test():
@@ -74,6 +76,18 @@ def test_3():
     inputs = [8, 7, 10, 11, 12]
     result = find_first_missing_positive(inputs)
     assert 1 == result
+
+
+def test_null():
+    inputs = []
+    result = find_first_missing_positive(inputs)
+    assert 1 == result
+
+
+def test_one():
+    inputs = [1]
+    result = find_first_missing_positive(inputs)
+    assert 2 == result
 
 
 if __name__ == '__main__':
