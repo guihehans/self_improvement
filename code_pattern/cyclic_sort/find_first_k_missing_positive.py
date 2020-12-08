@@ -27,24 +27,27 @@ Explanation: The smallest missing positive numbers are 1 and 2.
 """
 
 
-def find_first_k_missing_positive(nums, k):
+def find_first_k_missing_positive_my(nums, k):
     """
 
     :param nums:
     :param k: the k missing positive need to find.
     :return:
     """
+    i, n = 0, len(nums)
+    if n < 1:
+        return []
+
     min_num = min(filter(lambda x: x >= 0, nums))
 
-
-    i, n = 0, len(nums)
     while i < n:
         j = nums[i] - min_num
         if 0 < nums[i] <= n + min_num and nums[i] != nums[j]:
             nums[i], nums[j] = nums[j], nums[i]
         else:
             i += 1
-
+    # use two pointer i,j to compare range(1,n+k) with sorted nums. when element in range(1,n+k)
+    # doesnt match nums[i], add j to result. or when visit all nums, still missing, add j one by one .
     i, j = 0, 1
     result = []
     while k > 0:
@@ -62,6 +65,44 @@ def find_first_k_missing_positive(nums, k):
             k -= 1
 
     return result
+
+
+def find_first_k_missing_positive(nums, k):
+    """
+    same idea as find first missing positive,
+    the difference is
+    :param nums:
+    :param k:
+    :return:
+    """
+    i, n = 0, len(nums)
+    # cyclic sort nums. in range[1,n]
+    while i < n:
+        j = nums[i] - 1
+        if 0 < nums[i] <= n and nums[i] != nums[j]:
+            nums[i], nums[j] = nums[j], nums[i]
+        else:
+            i += 1
+
+    # iterate nums, add missing and wrong placed numbers
+    missing_nums = []
+    extra_set = set()
+    for i in range(0, n):
+        if k > 0 and nums[i] != i + 1:
+            missing_nums.append(i + 1)
+            k -= 1
+            if nums[i] > 0:
+                extra_set.add(nums[i])
+
+    # if still k elements not found,from i=n+1, add it if not see before
+    i = n
+    while k > 0:
+        i += 1
+        if i not in extra_set:
+            missing_nums.append(i)
+            k -= 1
+
+    return missing_nums
 
 
 def test():
@@ -83,6 +124,13 @@ def test_2():
     k = 2
     result = find_first_k_missing_positive(inputs, k)
     assert [1, 2] == result
+
+
+def test_3():
+    inputs = []
+    k = 0
+    result = find_first_k_missing_positive(inputs, k)
+    assert [] == result
 
 
 if __name__ == '__main__':
