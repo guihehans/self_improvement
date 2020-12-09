@@ -24,7 +24,7 @@ class Node:
         print()
 
 
-def reverse_every_k_elements(head, k):
+def reverse_every_k_elements_sub(head, k):
     prev, cur = None, head
     while cur is not None:
         i = 1
@@ -60,6 +60,34 @@ def reverse(start, tail):
     return prev, start
 
 
+def reverse_every_k_elements(head, k):
+    """
+    use a dummy node as pre of head, to simplify the process
+    faster than if version.
+    :param head:
+    :param k:
+    :return:
+    """
+    dummy = Node(0)
+    dummy.next = head
+    prev = dummy
+    start, tail = head, prev
+    while start is not None:
+        for i in range(k):
+            tail = tail.next
+            if tail is None:
+                return dummy.next
+        tail_next = tail.next
+        start, tail = reverse(start, tail)
+        # insert back
+        prev.next = start
+        tail.next = tail_next
+        # update pre, start tail
+        prev = tail
+        start = tail_next
+    return dummy.next
+
+
 def test():
     head = Node(1)
     head.next = Node(2)
@@ -90,7 +118,7 @@ def test_1():
 
     print("Nodes of original LinkedList are: ", end='')
     head.print_list()
-    result = reverse_every_k_elements(head, 8)
+    result = reverse_every_k_elements(head, 2)
     print("Nodes of reversed LinkedList are: ", end='')
     result.print_list()
 
