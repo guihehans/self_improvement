@@ -25,6 +25,8 @@ class Node:
 
 
 def rotate(head, k):
+    if head is None or k == 0:
+        return head
     cur = head
     n = 0
     while cur is not None:
@@ -34,6 +36,9 @@ def rotate(head, k):
 
     # find last node to rotate.
     m = k % n
+    # if m==0, no need to rotate, return head.
+    if m == 0:
+        return head
     prev_tail = get_k_from_end(head, m + 1)
     k_node = prev_tail.next
 
@@ -80,6 +85,38 @@ def test_1():
     print("Nodes of original LinkedList are: ", end='')
     head.print_list()
     result = rotate(head, 8)
+    print("Nodes of rotated LinkedList are: ", end='')
+    result.print_list()
+
+
+def test_2():
+    head = Node(0)
+    head.next = Node(1)
+    head.next.next = Node(2)
+
+    print("Nodes of original LinkedList are: ", end='')
+    head.print_list()
+    result = rotate(head, 4)
+    print("Nodes of rotated LinkedList are: ", end='')
+    result.print_list()
+
+
+def test_3():
+    head = Node(1)
+
+    print("Nodes of original LinkedList are: ", end='')
+    head.print_list()
+    result = rotate(head, 0)
+    print("Nodes of rotated LinkedList are: ", end='')
+    result.print_list()
+
+
+def test_4():
+    head = Node(1)
+
+    print("Nodes of original LinkedList are: ", end='')
+    head.print_list()
+    result = rotate(head, 1)
     print("Nodes of rotated LinkedList are: ", end='')
     result.print_list()
 
