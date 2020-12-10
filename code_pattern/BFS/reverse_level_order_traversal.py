@@ -2,11 +2,12 @@
 # encoding: utf-8
 """
 @author: guihehans
-@file: binary_tree_level_order_traverse.py
-@time: 2020/12/9 17:54
+@file: reverse_level_order_traversal.py
+@time: 2020/12/10 11:26
 @function:
 
 """
+
 from collections import deque
 
 
@@ -16,26 +17,25 @@ class TreeNode:
         self.left, self.right = None, None
 
 
-def traverse(root):
+def traverse(root: TreeNode):
     result = []
     if root is None:
-        return result
+        return []
+
     queue = deque()
     queue.append(root)
-    while len(queue) != 0:
+    while queue:
         level_size = len(queue)
-        current_level = []
+        cur_level = []
         for _ in range(level_size):
             item = queue.popleft()
-            current_level.append(item.val)
-            if item.left is not None:
+            cur_level.append(item.val)
+            if item.left:
                 queue.append(item.left)
-            if item.right is not None:
+            if item.right:
                 queue.append(item.right)
-
-        result.append(current_level)
-
-    return result
+        result.append(cur_level)
+    return result[::-1]
 
 
 def test():
@@ -45,7 +45,7 @@ def test():
     root.left.left = TreeNode(9)
     root.right.left = TreeNode(10)
     root.right.right = TreeNode(5)
-    assert [[12], [7, 1], [9, 10, 5]]== traverse(root)
+    assert [[9, 10, 5], [7, 1], [12]] == traverse(root)
 
 
 def test_null():
