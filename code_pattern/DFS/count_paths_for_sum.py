@@ -18,23 +18,28 @@ class TreeNode:
 
 
 def count_paths(root, S):
-    return dfs(root, S)
+    return dfs(root, S, [])
 
 
-def find_path(path, sum_val):
-    pass
-
-
-def dfs(root, sum_val):
+def dfs(root, sum_val, current_path):
     if root is None:
         return 0
-    if root.val == sum_val:
-        return 1
-    else:
-        return dfs(root.left, sum_val) \
-               + dfs(root.right, sum_val) \
-               + dfs(root.left, sum_val - root.val) \
-               + dfs(root.right, sum_val - root.val)
+    # add current node to path
+    current_path.append(root.val)
+
+    # find all subset path sum of current path
+    path_count, path_sum = 0, 0
+    for i in range(len(current_path)-1, -1, -1):
+        path_sum += current_path[i]
+        if path_sum == sum_val:
+            path_count += 1
+    # traverse left subtree and right subtree
+    path_count += dfs(root.left, sum_val, current_path)
+    path_count += dfs(root.right, sum_val, current_path)
+
+    # remove current node for backtrack
+    del current_path[-1]
+    return path_count
 
 
 def test():
@@ -53,6 +58,14 @@ def test_1():
     root = stringToTreeNode(tree)
     arr = stringToIntegerList(test_data)
     assert count_paths(root, arr) == 3
+
+
+def test_2():
+    tree = "[1,-2,-3,1,3,-2,null,-1]"
+    test_data = "3"
+    root = stringToTreeNode(tree)
+    arr = stringToIntegerList(test_data)
+    assert count_paths(root, arr) == 1
 
 
 def test_null():
