@@ -25,32 +25,21 @@ class TreeDiameter:
         self.treeDiameter = 0
 
     def find_diameter(self, root):
-        if root is None:
-            return 0
-        self.treeDiameter = max(self.treeDiameter, get_diameter(root, 0))
-        self.treeDiameter = max(self.treeDiameter, self.find_diameter(root.left))
-        self.treeDiameter = max(self.treeDiameter, self.find_diameter(root.right))
+        self.get_depth(root)
         return self.treeDiameter
 
-
-def get_diameter(root, level):
-    if root is None:
-        return 0
-    if root.left is None and root.right is None:
-        return 0
-    left_path = get_max_path(root.left, level + 1)
-    right_path = get_max_path(root.right, level + 1)
-    return left_path + right_path
-
-
-def get_max_path(node: TreeNode, level: int) -> int:
-    if node is None:
-        return 0
-    if node.left is None and node.right is None:
-        return level
-    left_depth = get_max_path(node.left, level + 1)
-    right_depth = get_max_path(node.right, level + 1)
-    return max(left_depth, right_depth)
+    def get_depth(self, node: TreeNode) -> int:
+        if node is None:
+            return 0
+        left_depth = self.get_depth(node.left)
+        right_depth = self.get_depth(node.right)
+        # each node will calculate their sub-left,sub-right tree depth.
+        # then each node's diameter is left_depth+right_depth.
+        # update max_diameter.
+        diameter = left_depth + right_depth
+        self.treeDiameter = max(self.treeDiameter, diameter)
+        # here is best way to get node's depth without passing parameter.
+        return max(left_depth, right_depth) + 1
 
 
 def test():
