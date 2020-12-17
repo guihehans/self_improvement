@@ -15,7 +15,7 @@ class MaxHeap:
     the maxHeap which each node is larger than it's child.
     """
 
-    def __init__(self, arr):
+    def __init__(self, arr=[]):
         self.array = arr
         self.n = len(arr)
         # [n//2,1]->[n//2,0)
@@ -82,7 +82,7 @@ class MaxHeap:
         self.n = len(self.array)
         self.swim(self.n)
 
-    def del_max(self):
+    def del_max(self) -> int:
         """
         del the root node, and swap the end node to root.
         sink until heapify finished.
