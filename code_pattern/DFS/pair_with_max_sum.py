@@ -33,19 +33,14 @@ class Solution:
     def get_max_path(self, root):
         if root is None:
             return 0
-        left_path = self.get_max_path(root.left)
-        right_path = self.get_max_path(root.right)
-        path_over_cur_node = root.val
-        if left_path > 0:
-            path_over_cur_node += left_path
-        if right_path > 0:
-            path_over_cur_node += right_path
+        # use max function. only when path >0, the sub tree path is calculated.
+        left_path = max(self.get_max_path(root.left), 0)
+        right_path = max(self.get_max_path(root.right), 0)
+        path_over_cur_node = root.val + left_path + right_path
 
         self.max_path_sum = max(path_over_cur_node, self.max_path_sum)
 
         sub_path_sum = max(left_path, right_path)
-        if sub_path_sum < 0:
-            sub_path_sum = 0
         return sub_path_sum + root.val
 
 
