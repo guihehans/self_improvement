@@ -46,9 +46,13 @@ def min_meeting_rooms_my(meetings: List[Meeting]) -> int:
 
 
 def min_meeting_rooms(meetings: List[Meeting]) -> int:
-    n = len(meetings)
-    if n < 2:
-        return n
+    """
+    Time complexity: O(N*logN). O(N*LogN) on sorting. O(N) for iterating, O(logN) for heappush and heappop
+    Space complexity: O(N). O(N) for sort. O(N) for min_heap if in worst case scenario.
+    :param meetings:
+    :return:
+    """
+
     meetings.sort(key=lambda x: x.start)
     min_heap = []
     min_room = 0
@@ -56,9 +60,12 @@ def min_meeting_rooms(meetings: List[Meeting]) -> int:
         # if min_heap not empty and current meeting start after current smallest min_heap meeting's end
         # which means current meeting can be arranged after the min_heap[0]
         # pop the min_heap[0]
-        if len(min_heap) > 0 and meeting.start >= min_heap[0].end:
+        while len(min_heap) > 0 and meeting.start >= min_heap[0].end:  # remove all meeting end before now
             heappop(min_heap)
-        # else, the meeting overlap with one meeting in heap, heappush it as open another room.
+        # else, the meeting either
+        # 1.overlap with one meeting in heap,
+        # 2.continue after the end first meeting min_heap[0]
+        # heappush it as occupy another room or continue use room
         heappush(min_heap, meeting)
         min_room = max(min_room, len(min_heap))
 
@@ -83,6 +90,12 @@ def test_3():
 def test_4():
     min_room = min_meeting_rooms([Meeting(4, 5), Meeting(2, 3), Meeting(2, 4), Meeting(3, 5)])
     assert min_room == 2
+
+
+def test_4():
+    min_room = min_meeting_rooms(
+        [Meeting(4, 5), Meeting(2, 3), Meeting(2, 4), Meeting(3, 5), Meeting(2, 3), Meeting(3, 5)])
+    assert min_room == 3
 
 
 if __name__ == '__main__':

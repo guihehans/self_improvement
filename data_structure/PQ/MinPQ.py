@@ -19,11 +19,7 @@ class MinHeap:
 
     """
 
-    def __init__(self):
-        self.array = []
-        self.n = 0
-
-    def __init__(self, arr):
+    def __init__(self, arr=[]):
         self.array = arr
         self.n = len(arr)
         # [n//2,1]->[n//2,0)
@@ -71,7 +67,7 @@ class MinHeap:
         self.n = len(self.array)
         self.swim(self.n)
 
-    def del_root(self):
+    def del_root(self) -> int:
         """
         delete the root node which is minimum.
         swap the end node to root, delete the end node, and sink down to heapify.
