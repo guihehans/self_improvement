@@ -8,8 +8,7 @@
 
 """
 
-from data_structure.PQ.MaxPQ import MaxHeap
-from data_structure.PQ.MinPQ import MinHeap
+from heapq import *
 
 
 class MedianOfAStream:
@@ -20,50 +19,49 @@ class MedianOfAStream:
     """
 
     def __init__(self):
-        self.min_heap = MinHeap()
-        self.max_heap = MaxHeap()
+        # init a max_heap(using - to reverse sort) and a min_heap
+        self.min_heap = []
+        self.max_heap = []
 
     def insert_num(self, num):
-        if self.max_heap.n == 0:
-            self.max_heap.insert(num)
+        if not self.max_heap:
+            heappush(self.max_heap, -num)
         else:
-            max_root = self.max_heap.find_root()
-            if num <= max_root:
-                self.max_heap.insert(num)
+            root = - self.max_heap[0]
+            if num <= root:
+                heappush(self.max_heap, -num)
             else:
-                self.min_heap.insert(num)
-            # check len, if not balanced, adjust heaps.
-
-            if self.max_heap.n < self.min_heap.n:  # 1. min_heap need to pop
-                pop_value = self.min_heap.del_root()
-                self.max_heap.insert(pop_value)
-            elif self.max_heap.n - self.min_heap.n > 1:  # 2. max_heap need to pop
-                pop_value = self.max_heap.del_max()
-                self.min_heap.insert(pop_value)
-            # else. dont need to adjust
+                heappush(self.min_heap, num)
+            # adjust the heap size to keep  0<=len(max_heap)-len(min_heap)<=1
+            if len(self.max_heap) - len(self.min_heap) > 1:
+                value = -heappop(self.max_heap)
+                heappush(self.min_heap, value)
+            elif len(self.max_heap) < len(self.min_heap):
+                value = heappop(self.min_heap)
+                heappush(self.max_heap, -value)
 
     def find_median(self):
-        if self.max_heap.n - 1 == self.min_heap.n:
-            return self.max_heap.find_root()
-        elif self.max_heap.n == self.min_heap.n:
-            return (self.max_heap.find_root() + self.min_heap.find_root()) / 2
+        if len(self.max_heap) - len(self.min_heap) == 1:
+            return -self.max_heap[0]
+        elif len(self.max_heap) == len(self.min_heap):
+            return (-self.max_heap[0] + self.min_heap[0]) / 2
 
 
 def test():
     medianOfAStream = MedianOfAStream()
     medianOfAStream.insert_num(3)
     medianOfAStream.insert_num(1)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 2
     medianOfAStream.insert_num(5)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 3
     medianOfAStream.insert_num(4)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 3.5
 
 
 def test_1():
     medianOfAStream = MedianOfAStream()
     medianOfAStream.insert_num(1)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 1
 
 
 if __name__ == '__main__':
