@@ -51,17 +51,17 @@ def test():
     medianOfAStream = MedianOfAStream()
     medianOfAStream.insert_num(3)
     medianOfAStream.insert_num(1)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 2
     medianOfAStream.insert_num(5)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 3
     medianOfAStream.insert_num(4)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 3.5
 
 
 def test_1():
     medianOfAStream = MedianOfAStream()
     medianOfAStream.insert_num(1)
-    print("The median is: " + str(medianOfAStream.find_median()))
+    assert medianOfAStream.find_median() == 1
 
 
 if __name__ == '__main__':
