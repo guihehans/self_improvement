@@ -8,33 +8,67 @@
 
 """
 
-from heapq import *
+from typing import *
 
 
-class Interval:
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        sorted_intervals = sorted(intervals, key=lambda x: x[0])
+        result = []
+        max_heap = []
+        for i in range(len(intervals)):
+            interval = intervals[i]
+            if interval[1] > sorted_intervals[-1][1]:
+                result.append(-1)
+            else:
+                index = binary_search(sorted_intervals, interval[1])
+                result.append(index)
+
+        return result
 
 
-def find_next_interval(intervals):
-    result = []
-    max_heap = []
-    for i in range(len(intervals)):
-        interval = intervals[i]
-        heappush(max_heap, (-interval.start, i))
+def binary_search(arr, value):
+    start = 0
+    end = len(arr) - 1
 
-    return result
+    while start <= end:
+        # to avoid start+end overflow and bit operate is faster, use current start+((end-start)>>1)
+        # which is start+(end-start)/2
+        mid = start + ((end - start) >> 1)
+        mid_value = arr[mid][0]
+
+        if mid_value >= value:
+            if mid == 0 or (arr[mid - 1][0] < value):
+                return mid
+            else:
+                end = mid - 1
+        elif mid_value < value:
+            start = mid + 1
+    return -1
 
 
-def main():
-    result = find_next_interval(
-        [Interval(2, 3), Interval(3, 4), Interval(5, 6)])
-    print("Next interval indices are: " + str(result))
-
-    result = find_next_interval(
-        [Interval(3, 4), Interval(1, 5), Interval(4, 6)])
-    print("Next interval indices are: " + str(result))
+def test():
+    s = Solution()
+    arr = [[2, 3], [3, 4], [5, 6]]
+    result = s.findRightInterval(arr)
+    assert result == [1, 2, -1]
 
 
-main()
+def test_1():
+    s = Solution()
+    arr = [[3, 4], [1, 5], [4, 6]]
+    result = s.findRightInterval(arr)
+    assert result == [2, -1, -1]
+
+
+def test_2():
+    s = Solution()
+    arr = [[3, 4], [2, 3], [1, 2]]
+    result = s.findRightInterval(arr)
+    assert result == [-1, 0, 1]
+
+
+if __name__ == '__main__':
+    test()
+    test_1()
+    test_2()
