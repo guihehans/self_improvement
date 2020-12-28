@@ -9,18 +9,18 @@
 """
 
 
-def diff_ways_to_evaluate_expression(input):
+def diff_ways_to_evaluate_expression_recursive(input):
     if input.isdigit():
         return [int(input)]
 
     result = []
     for i, char in enumerate(input):
         if char in ["+", "-", "*"]:
-            left = diff_ways_to_evaluate_expression(input[:i])
-            right = diff_ways_to_evaluate_expression(input[i + 1:])
-            for l in left:
-                for r in right:
-                    result.append(cal_expression(l, r, char))
+            left = diff_ways_to_evaluate_expression_recursive(input[:i])
+            right = diff_ways_to_evaluate_expression_recursive(input[i + 1:])
+            for left_val in left:
+                for right_val in right:
+                    result.append(cal_expression(left_val, right_val, char))
     return result
 
 
@@ -33,6 +33,29 @@ def cal_expression(op1, op2, operator):
         return op1 * op2
     else:
         return -1
+
+
+def evaluate_expression(memo, input):
+    if input in memo:
+        return memo[input]
+
+    if input.isdigit():
+        return [int(input)]
+
+    result = []
+    for i, char in enumerate(input):
+        if char in ["+", "-", "*"]:
+            left = evaluate_expression(memo, input[:i])
+            right = evaluate_expression(memo, input[i + 1:])
+            for left_val in left:
+                for right_val in right:
+                    result.append(cal_expression(left_val, right_val, char))
+    memo[input] = result
+    return result
+
+
+def diff_ways_to_evaluate_expression(input):
+    return evaluate_expression({}, input)
 
 
 def test():
@@ -48,6 +71,15 @@ def test_1():
     expression = "2*3-4*5"
     result = diff_ways_to_evaluate_expression(expression)
     expected = [-34, -14, -10, -10, 10]
+    for r in expected:
+        assert r in result
+    assert len(result) == len(expected)
+
+
+def test_null():
+    expression = "2"
+    result = diff_ways_to_evaluate_expression(expression)
+    expected = [2]
     for r in expected:
         assert r in result
     assert len(result) == len(expected)
