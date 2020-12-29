@@ -17,33 +17,18 @@ class TreeNode:
 
 
 class Solution:
-    def __init__(self):
-        self.cnt = 0
-
     def find_unique_trees(self, n):
-        nums = list(range(1, n + 1))
-        for num in nums:
-            root = num
-            left = [x for x in nums if x < root]
-            right = [x for x in nums if x > root]
-            self.dfs(left, right)
+        return G(n)
 
-        return self.cnt
 
-    def dfs(self, left_nums, right_nums):
-        if len(left_nums) <= 1 and len(right_nums) <= 1:
-            self.cnt += 1
-            return
+def G(N):
+    G = [0] * (N + 1)
+    G[0], G[1] = 1, 1
+    for i in range(2, N + 1):
+        for j in range(1, i + 1):
+            G[i] += G[j - 1] * G[i - j]
 
-        for node in left_nums:
-            lefts = [x for x in right_nums if x < node]
-            rights = [x for x in right_nums if x > node]
-            self.dfs(lefts, rights)
-
-        for node in right_nums:
-            lefts = [x for x in right_nums if x < node]
-            rights = [x for x in right_nums if x > node]
-            self.dfs(lefts, rights)
+    return G[N]
 
 
 def test():
@@ -60,5 +45,19 @@ def test_1():
     assert s.find_unique_trees(N) == result
 
 
+def test_3():
+    N = 4
+    result = 14
+    s = Solution()
+    assert s.find_unique_trees(N) == result
+
+
+def test_4():
+    N = 5
+    result = 42
+    s = Solution()
+    assert s.find_unique_trees(N) == result
+
+
 if __name__ == '__main__':
-    test()
+    print(G(5))
