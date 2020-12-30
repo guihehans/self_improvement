@@ -19,11 +19,17 @@ def binary_search(arr, key):
         mid = start + ((end - start) >> 1)
         if key == arr[mid]:
             return mid
-        else:
-            if (direction and key > arr[mid]) or (not direction and key < arr[mid]):
-                start = mid + 1
+        else:  # add ascending check
+            if direction:
+                if key > arr[mid]:
+                    start = mid + 1
+                else:
+                    end = mid - 1
             else:
-                end = mid - 1
+                if key < arr[mid]:
+                    start = mid + 1
+                else:
+                    end = mid - 1
 
     return -1
 
@@ -34,6 +40,7 @@ def test():
     assert (binary_search([10, 6, 4], 10)) == 0
     assert (binary_search([10, 6, 4], 4)) == 2
     assert (binary_search([10, 6, 4], 7)) == -1
+    assert (binary_search([1, 3, 8, 10, 15], 3)) == 1
 
 
 if __name__ == '__main__':
