@@ -10,7 +10,21 @@
 
 
 def binary_search(arr, key):
-    # TODO: Write your code here
+    start, end = 0, len(arr) - 1
+
+    direction = True if arr[start] < arr[end] else False
+
+    while start <= end:
+        # the parenthesis is important!
+        mid = start + ((end - start) >> 1)
+        if key == arr[mid]:
+            return mid
+        else:
+            if (direction and key > arr[mid]) or (not direction and key < arr[mid]):
+                start = mid + 1
+            else:
+                end = mid - 1
+
     return -1
 
 
