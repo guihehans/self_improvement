@@ -12,7 +12,7 @@
 def count_rotations(arr):
     n = len(arr)
     start, end = 0, n - 1
-    if arr[start] < arr[end]:
+    if arr[start] <= arr[end]:
         return 0
 
     while start < end and end - start != 1:
