@@ -61,7 +61,7 @@ def test_5():
 
 
 def test_6():
-    assert (find_rotation_count_duplicated([10, 10, 10, 1])) == 3
+    assert (find_rotation_count_duplicated([10, 10, 10, 1,1, 1,1, 1, 1])) == 3
 
 
 def test_7():
