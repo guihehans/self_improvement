@@ -12,15 +12,17 @@
 def search_rotated_array(arr, key):
     n = len(arr)
     start, end = 0, n - 1
+    if arr[start] < arr[end]:
+        peak = end
+    else:
+        while start < end and (start - end) != -1:
+            mid = start + ((end - start) >> 1)
+            if arr[mid] < arr[start]:
+                end = mid
+            elif arr[mid] > arr[end]:
+                start = mid
 
-    while start < end and (start - end) != -1:
-        mid = start + ((end - start) >> 1)
-        if arr[mid] < arr[start]:
-            end = mid
-        elif arr[mid] > arr[end]:
-            start = mid
-
-    peak = start
+        peak = start
     idx = binary_search(arr, 0, peak, key)
     if idx == -1:
         return binary_search(arr, peak + 1, n - 1, key)
