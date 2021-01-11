@@ -22,20 +22,36 @@ def rearrange_string(S):
 
     n = len(S)
     result = ""
-    while max_heap:
-        for i in range(len(max_heap)):
-            freq, char = max_heap[i]
-            if result and result[-1] == char:
-                return ""
-            result = result + char
-            freq += 1
-            if freq == 0:
-                del max_heap[i]
-                break
-            else:
-                max_heap[i] = (freq, char)
+    while len(max_heap) > 1:
+        freq_1, char_1 = heappop(max_heap)
+        freq_2, char_2 = heappop(max_heap)
+        if result and result[-1] == char_1:
+            return ""
+        result = result + char_1 + char_2
+        freq_1 += 1
+        freq_2 += 1
+        if freq_1 != 0:
+            heappush(max_heap, (freq_1, char_1))
+        if freq_2 != 0:
+            heappush(max_heap, (freq_2, char_2))
+
+    if max_heap:
+        result = check_and_add_char(result, max_heap)
 
     return result
+
+
+def check_and_add_char(result, heap):
+    if heap:
+        freq, char = heappop(heap)
+        if -freq != 1:
+            return ""
+        if result and result[-1] == char:
+            return False
+        else:
+            result += char
+            freq += 1
+        return result
 
 
 def no_char_repeat(S):
@@ -77,6 +93,7 @@ def test_4():
     input = "vvvlo"
     result = rearrange_string(input)
     assert no_char_repeat(result) is True
+
 
 def test_4():
     input = "kkkkzrkatkwpkkkktrq"
