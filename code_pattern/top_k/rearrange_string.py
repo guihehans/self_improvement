@@ -95,7 +95,7 @@ def test_4():
     assert no_char_repeat(result) is True
 
 
-def test_4():
+def test_5():
     input = "kkkkzrkatkwpkkkktrq"
     result = rearrange_string(input)
     assert no_char_repeat(result) is True
