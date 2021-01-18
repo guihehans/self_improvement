@@ -18,7 +18,7 @@ class ListNode:
         self.next = None
 
 
-def merge_lists(lists):
+def merge_lists_my(lists):
     resultHead = None
 
     n = len(lists)
@@ -47,6 +47,39 @@ def merge_lists(lists):
         if next_node:
             heappush(min_heap, (next_node.val, idx, next_node))
             next_node = next_node.next
+
+    return resultHead
+
+
+ListNode.__lt__ = lambda self, other: self.val < other.val
+
+
+def merge_lists(lists):
+    resultHead = None
+    min_heap = []
+
+    n = len(lists)
+    if n == 0:
+        return resultHead
+    elif n == 1:
+        return lists[0]
+
+    for head in lists:
+        if head is not None:
+            heappush(min_heap, head)
+
+    cur_node = resultHead
+    while min_heap:
+        head = heappop(min_heap)
+        if not cur_node:
+            cur_node = head
+            resultHead = head
+        else:
+            cur_node.next = head
+            cur_node = cur_node.next
+        # push popped index's next node
+        if head.next is not None:
+            heappush(min_heap, head.next)
 
     return resultHead
 
