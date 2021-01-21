@@ -34,6 +34,38 @@ def find_Kth_smallest(matrix, k):
     return number
 
 
+def find_Kth_smallest(matrix, k):
+    n = len(matrix)
+    start, end = matrix[0][0], matrix[n - 1][n - 1]
+    while start < end:
+        mid = start + (end - start) / 2
+        count, smaller, larger = count_less_equal_than(mid, matrix, start, end, n)
+        if count == k:
+            return smaller
+        elif count < k:
+            start = larger  # search higher value range
+        elif count > k:
+            end = smaller  # search lower value range
+
+    return start  # in case start == end, when only 1 element
+
+
+def count_less_equal_than(mid, matrix, start, end, n):
+    smaller, larger = start, end
+    row, col = n - 1, 0
+    count = 0
+    while row >= 0 and col < n:
+        if matrix[row][col] <= mid:
+            count += row + 1
+            smaller = max(smaller, matrix[row][col])
+            col += 1
+        else:
+            larger = min(larger, matrix[row][col])
+            row -= 1
+
+    return count, smaller, larger
+
+
 def test():
     matrix = [[2, 6, 8], [3, 7, 10], [5, 8, 11]]
     k = 5
@@ -42,9 +74,29 @@ def test():
 
 
 def test_1():
-    matrix = [[2, 6, 8], [3, 6, 7], [1, 3, 4]]
-    k = 6
-    expected = 6
+    matrix = [
+        [1, 5, 9],
+        [10, 11, 13],
+        [12, 13, 15]
+    ]
+    k = 8
+    expected = 13
+    assert find_Kth_smallest(matrix, k) == expected
+
+
+def test_2():
+    matrix = [
+        [-5]
+    ]
+    k = 1
+    expected = -5
+    assert find_Kth_smallest(matrix, k) == expected
+
+
+def test_3():
+    matrix = [[1, 2], [1, 3]]
+    k = 3
+    expected = 2
     assert find_Kth_smallest(matrix, k) == expected
 
 
