@@ -10,15 +10,27 @@
 
 
 def can_partition(num):
-    return dp(num, 0, 0, 0, {})
+    sum_val = sum(num)
+    # check if added items sum equal  to half sum
+    return dp(num, 0, sum_val / 2)
 
 
-def dp(num, index, sum1, sum2, mem):
-    if index == len(num):
-        return sum1 == sum2
+def dp(num, index, sum):
+    # base check
+    n = len(num)
+    if n == 0:
+        return False
 
+    if sum <= 0:
+        return True
+    if index >= len(num):
+        return False
 
-    return dp(num, index + 1, sum1 + num[index], sum2) or dp(num, index + 1, sum1, sum2 + num[index])
+    if num[index] <= sum:
+        if dp(num, index + 1, sum - num[index]):
+            return True
+
+    return dp(num, index + 1, sum)
 
 
 def test():
@@ -34,6 +46,20 @@ def test_1():
 def test_2():
     arr = [2, 3, 4, 6]
     assert can_partition(arr) is False
+
+
+def test_3():
+    arr = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+           99, 97]
+    assert can_partition(arr) is True
 
 
 if __name__ == '__main__':
