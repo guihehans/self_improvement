@@ -12,15 +12,19 @@
 def can_partition(num):
     sum_val = sum(num)
     # check if added items sum equal  to half sum
-    return dp(num, 0, sum_val / 2)
+    return dp(num, 0, sum_val / 2, {})
 
 
-def dp(num, index, sum):
+def dp(num, index, sum, mem):
     # base check
     n = len(num)
     if n == 0:
         return False
+    # memo check
 
+    if (index, sum) in mem:
+        return mem[(index, sum)]
+    # value check
     if sum <= 0:
         return True
     if index >= len(num):
@@ -28,6 +32,7 @@ def dp(num, index, sum):
 
     if num[index] <= sum:
         if dp(num, index + 1, sum - num[index]):
+            mem[(index + 1, sum - num[index])] = True
             return True
 
     return dp(num, index + 1, sum)
@@ -62,5 +67,9 @@ def test_3():
     assert can_partition(arr) is True
 
 
+
+
+
 if __name__ == '__main__':
     test()
+
