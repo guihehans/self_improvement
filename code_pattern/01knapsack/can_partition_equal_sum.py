@@ -67,9 +67,5 @@ def test_3():
     assert can_partition(arr) is True
 
 
-
-
-
 if __name__ == '__main__':
     test()
-
